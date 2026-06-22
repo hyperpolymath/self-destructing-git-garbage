@@ -1,0 +1,3 @@
+# reaper working state — manifests + branch backups are runtime artifacts
+.git-garbage-state/
+*.bundle

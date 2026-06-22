@@ -1,0 +1,13 @@
+# SPDX-License-Identifier: MPL-2.0
+# Weekly, persistent (catches up after the host was off) — the estate cost-governor
+# pattern: a fixed tap that cannot run away, on owned compute, $0.
+[Unit]
+Description=Weekly self-destructing-git-garbage reap
+
+[Timer]
+OnCalendar=Sun *-*-* 04:00:00
+Persistent=true
+RandomizedDelaySec=1800
+
+[Install]
+WantedBy=timers.target

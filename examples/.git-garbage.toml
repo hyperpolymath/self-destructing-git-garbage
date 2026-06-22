@@ -1,0 +1,9 @@
+# SPDX-License-Identifier: MPL-2.0
+# Drop a copy of this at any repo root to pin branches the reaper must never touch.
+# Honoured under BOTH the marked-expired and provably-merged paths.
+
+keep = ["release/*", "local-rebase-*", "wip/*", "backup/*"]
+
+# Optional: extra names to treat as throwaway (garbage/*-equivalent — still backed up,
+# still only reaped once merged unless also marker-expired).
+kill = []

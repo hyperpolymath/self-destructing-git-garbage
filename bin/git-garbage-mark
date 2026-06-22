@@ -1,0 +1,32 @@
+#!/usr/bin/env bash
+# SPDX-License-Identifier: MPL-2.0
+# Copyright 2026 hyperpolymath
+#
+# git-garbage-mark — stamp a branch with a self-destruct marker (see SPEC.md §2).
+# Renaming a branch is local + reversible; nothing is deleted here.
+#
+#   git-garbage-mark <branch> --ttl <YYYY-MM-DD>   # -> ttl/<date>/<branch>
+#   git-garbage-mark <branch> --in <N>             # expire in N days -> ttl/<date>/<branch>
+#   git-garbage-mark <branch> --garbage            # -> garbage/<branch> (throwaway, expires now)
+#   git-garbage-mark --here  <...>                 # operate on the current branch
+set -euo pipefail
+br=""; mode=""; val=""
+while [ $# -gt 0 ]; do case "$1" in
+  --here) br="$(git symbolic-ref --short HEAD)";;
+  --ttl) mode=ttl; val="$2"; shift;;
+  --in)  mode=in;  val="$2"; shift;;
+  --garbage) mode=garbage;;
+  -*) echo "unknown flag: $1" >&2; exit 2;;
+  *) br="$1";;
+esac; shift; done
+[ -n "$br" ] || { echo "usage: git-garbage-mark <branch|--here> {--ttl DATE|--in N|--garbage}" >&2; exit 2; }
+git show-ref --verify --quiet "refs/heads/$br" || { echo "no such branch: $br" >&2; exit 2; }
+case "$mode" in
+  ttl)     new="ttl/$val/$br";;
+  in)      new="ttl/$(date -u -d "+$val days" +%Y-%m-%d)/$br";;
+  garbage) new="garbage/$br";;
+  *) echo "pick one of --ttl / --in / --garbage" >&2; exit 2;;
+esac
+git branch -m "$br" "$new"
+echo "marked: $br  ->  $new"
+echo "(reverse with: git branch -m \"$new\" \"$br\")"

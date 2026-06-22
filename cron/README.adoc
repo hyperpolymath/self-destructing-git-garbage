@@ -1,0 +1,34 @@
+// SPDX-License-Identifier: CC-BY-SA-4.0
+= Owned-compute reaper install
+
+The reaper runs on *owned compute* (your WSL host or a VPS) via a systemd user
+timer — never in metered GitHub Actions. This is the estate cost-governor
+pattern: a *fixed tap* that cannot run away, costing $0/run.
+
+== Install (user units)
+
+[source,sh]
+----
+mkdir -p ~/.config/systemd/user
+cp cron/self-destructing-git-garbage.service ~/.config/systemd/user/
+cp cron/self-destructing-git-garbage.timer   ~/.config/systemd/user/
+systemctl --user daemon-reload
+systemctl --user enable --now self-destructing-git-garbage.timer
+----
+
+== Trust ladder
+
+. *Week 1* — leave it in **dry-run** (the shipped default). Read the manifests
+  under `~/.local/state/git-garbage/` and confirm only garbage is listed.
+. *Week 2+* — once the dry-run lists look right, switch `ExecStart` in the
+  `.service` to the `--apply` line. Backups + manifests are still written first,
+  so every reap stays reversible.
+
+== Manual run
+
+[source,sh]
+----
+bin/git-garbage-reap local  ~/developer/repos            # dry-run
+bin/git-garbage-reap local  --apply ~/developer/repos    # reap (with backups)
+bin/git-garbage-reap restore ~/.local/state/git-garbage/reaped-local-<stamp>.tsv
+----

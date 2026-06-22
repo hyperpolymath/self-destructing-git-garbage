@@ -1,0 +1,18 @@
+# SPDX-License-Identifier: MPL-2.0
+# Owned-compute reaper — runs on the host (WSL/VPS), NOT in metered GitHub Actions.
+# See cron/README.adoc. Dry-run by default; flip ExecStart to --apply once trusted.
+[Unit]
+Description=self-destructing-git-garbage estate branch reaper
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+# Estate root to sweep, and a durable state dir for manifests + backups.
+Environment=GARBAGE_STATE=%h/.local/state/git-garbage
+Environment=OWNER_GLOB=hyperpolymath
+# DRY-RUN by default. Remove the leading echo and add --apply when you trust it:
+#   ExecStart=%h/developer/repos/self-destructing-git-garbage/bin/git-garbage-reap local --apply %h/developer/repos
+ExecStart=%h/developer/repos/self-destructing-git-garbage/bin/git-garbage-reap local %h/developer/repos
+Nice=10
+IOSchedulingClass=idle
