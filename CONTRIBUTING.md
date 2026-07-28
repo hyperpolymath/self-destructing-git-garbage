@@ -1,13 +1,13 @@
 # Clone the repository
-git clone https://github.com/hyperpolymath/squisher-corpus.git
-cd squisher-corpus
+git clone https://github.com/hyperpolymath/self-destructing-git-garbage.git
+cd self-destructing-git-garbage
 
 # Using Nix (recommended for reproducibility)
 nix develop
 
 # Or using toolbox/distrobox
-toolbox create squisher-corpus-dev
-toolbox enter squisher-corpus-dev
+toolbox create self-destructing-git-garbage-dev
+toolbox enter self-destructing-git-garbage-dev
 # Install dependencies manually
 
 # Verify setup
@@ -17,7 +17,7 @@ just test    # Run test suite
 
 ### Repository Structure
 ```
-squisher-corpus/
+self-destructing-git-garbage/
 ├── src/                 # Source code (Perimeter 1-2)
 ├── lib/                 # Library code (Perimeter 1-2)
 ├── extensions/          # Extensions (Perimeter 2)
@@ -86,10 +86,10 @@ Use the [feature request template](.github/ISSUE_TEMPLATE/feature_request.md) an
 
 Look for issues labelled:
 
-- [`good first issue`](https://github.com/hyperpolymath/squisher-corpus/labels/good%20first%20issue) — Simple Perimeter 3 tasks
-- [`help wanted`](https://github.com/hyperpolymath/squisher-corpus/labels/help%20wanted) — Community help needed
-- [`documentation`](https://github.com/hyperpolymath/squisher-corpus/labels/documentation) — Docs improvements
-- [`perimeter-3`](https://github.com/hyperpolymath/squisher-corpus/labels/perimeter-3) — Community sandbox scope
+- [`good first issue`](https://github.com/hyperpolymath/self-destructing-git-garbage/labels/good%20first%20issue) — Simple Perimeter 3 tasks
+- [`help wanted`](https://github.com/hyperpolymath/self-destructing-git-garbage/labels/help%20wanted) — Community help needed
+- [`documentation`](https://github.com/hyperpolymath/self-destructing-git-garbage/labels/documentation) — Docs improvements
+- [`perimeter-3`](https://github.com/hyperpolymath/self-destructing-git-garbage/labels/perimeter-3) — Community sandbox scope
 
 ---
 
