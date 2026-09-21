@@ -1,0 +1,19 @@
+= Architecture of self-destructing-git-garbage
+
+This document describes the layout of this repository as it actually
+exists, per the estate Required Files gate (substance over presence).
+
+== Layout
+
+* `.github/` — GitHub workflows, labels and repository configuration
+* `LICENSES/` — LICENSES — repository component
+* `bin/` — executable entry points
+* `cron/` — cron — repository component
+* `examples/` — worked examples
+
+== Data flow
+
+The entry points and the CI definition under `.github/workflows/` are the
+authoritative description of how the pieces above fit together; where a
+README exists at the root it narrates usage. This file intentionally
+names only directories that exist here.
