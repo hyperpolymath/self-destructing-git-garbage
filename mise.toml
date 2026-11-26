@@ -8,10 +8,8 @@
 rust = "latest"
 zig = "latest"
 bun = "latest"
-deno = "latest"   # was `denojs` — not a registry name
 
 # Package managers / task runner
-pnpm = "latest"
 just = "latest"   # the estate's task runner (Justfile)
 
 # Formatting & linting
